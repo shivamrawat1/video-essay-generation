@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloading Video</title>
+</head>
+<body>
+    <h2>Your video is being downloaded...</h2>
+
+    <!-- Hidden iframe to trigger the download -->
+    <iframe id="downloadFrame" style="display: none;"></iframe>
+
+    <script>
+        // Trigger the video download using an invisible iframe
+        const downloadUrl = "{{ url_for('download_video', video_path=video_path) }}";
+        const iframe = document.getElementById('downloadFrame');
+        iframe.src = downloadUrl;
+
+        // Automatically redirect to the home page after the download starts
+        setTimeout(function () {
+            window.location.href = "/";
+        }, 5000);  // 5-second delay before redirecting to the home page
+    </script>
+</body>
+</html>

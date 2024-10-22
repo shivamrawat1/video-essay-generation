@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="loading-screen">
+        <h2>Please wait, we are generating your video...</h2>
+    </div>
+
+    <!-- Trigger video generation after the loading screen is displayed -->
+    <script>
+        setTimeout(() => {
+            // Post the form data for video generation
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/process_video';
+
+            // Add the necessary hidden input fields for book_title and num_scenes
+            var bookTitleInput = document.createElement('input');
+            bookTitleInput.type = 'hidden';
+            bookTitleInput.name = 'book_title';
+            bookTitleInput.value = "{{ request.args.get('book_title') }}";
+            form.appendChild(bookTitleInput);
+
+            var numScenesInput = document.createElement('input');
+            numScenesInput.type = 'hidden';
+            numScenesInput.name = 'num_scenes';
+            numScenesInput.value = "{{ request.args.get('num_scenes') }}";
+            form.appendChild(numScenesInput);
+
+            // Append the form and submit
+            document.body.appendChild(form);
+            form.submit();
+        }, 1000);  // Delay to ensure the loading screen is shown before submitting the form
+    </script>
+</body>
+</html>
